@@ -1,0 +1,49 @@
+{
+  "requiresAttributes": [
+    {
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.task-iam-role",
+      "targetId": null,
+      "targetType": null
+    }
+  ],
+  "networkMode": "bridge",
+  "status": "ACTIVE",
+  "revision": 2,
+  "taskRoleArn": "ADD YOUR ROLE ARN HERE",
+  "containerDefinitions": [
+    {
+      "volumesFrom": [],
+      "memory": 64,
+      "extraHosts": null,
+      "dnsServers": null,
+      "disableNetworking": null,
+      "dnsSearchDomains": null,
+      "portMappings": [],
+      "hostname": null,
+      "essential": true,
+      "entryPoint": null,
+      "mountPoints": [],
+      "name": "route53_all_zones_export_to_s3",
+      "ulimits": null,
+      "dockerSecurityOptions": null,
+      "environment": [],
+      "links": null,
+      "workingDirectory": null,
+      "readonlyRootFilesystem": null,
+      "image": "signiant/route53-export",
+      "command": [
+        "s3://mybucket/mykey"
+      ],
+      "user": null,
+      "dockerLabels": null,
+      "logConfiguration": null,
+      "cpu": 10,
+      "privileged": null,
+      "memoryReservation": null
+    }
+  ],
+  "placementConstraints": [],
+  "volumes": [],
+  "family": "devops_route53_export_all_zones"
+}
