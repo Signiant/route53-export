@@ -26,8 +26,13 @@ if [[ ! -d "${saveDirectory}" ]]; then {
 } fi
 
 log "Obtaining zone list"
-zones=$(cli53 list | grep ' Name: ' | cut -d: -f2 | sed "s/ //g")
+zones=$(/app/cli53 list |grep -v "Record count" |awk '{print $2}')
 log "Zone list is $zones"
+
+if [ -z "$zones" ]; then
+  log "FATAL ERROR: No Route53 zones found to export"
+  exit 2
+fi
 
 IFS="
 "
@@ -37,7 +42,7 @@ mkdir -p $saveDirectory/${date}
 
 for zone in $zones ; do {
         log "Downloading $zone"
-        cli53 export $zone > $saveDirectory/${date}/${zone}.db
+        cli53 export $zone > $saveDirectory/${date}/${zone}db
 } done
 
 if [ -n "$BUCKET" ]; then {
